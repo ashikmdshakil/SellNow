@@ -1,0 +1,25 @@
+#createAuction{
+    position: relative;
+    top:20px;
+}
+#collapseAuction{
+    position: relative;
+    top:25px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.profilePicture {
+	
+	max-width: 100%;
+    height: auto; 	
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+  height: auto;
+    }
+    .productSection{
+        position: relative;
+        top: 35px;
+    }

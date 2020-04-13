@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+        <title>Auctions</title>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel = "stylesheet" href = "auctioncss.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                
+                
+                
+                 <!-- Nav bar -->
+    
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  		<a class="navbar-brand" href="/ecommerce">Sell Now</a>
+  		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    		<span class="navbar-toggler-icon"></span>
+  		</button>
+  		
+  		<div class="collapse navbar-collapse" id="navbarNav">
+    		<ul class="navbar-nav">
+      			<li class="nav-item active">
+        			<a class="nav-link" href="hello" ><span class="sr-only">(current)</span></a>
+      			</li>
+      			<li class="nav-item">
+        			<a class="nav-link" th:href="@{/ecommerce/Auctions}"> Auctions </a>
+      			</li>
+      			<li class="nav-item">
+        			<a class="nav-link" th:href="@{/ecommerce/myprofile(id=${session.userId})}" th:text="${session.userName}">My Profile</a>
+      			</li>
+      			<li class="nav-item">
+        			<a class="nav-link" th:href="@{/ecommerce/admin}">Admin</a>
+      			</li>
+      			<div class = "logout">
+      			<li class="nav-item">
+        			<a class="nav-link" href="/logout" style="position : relative;
+	left:800px;">Logout</a>
+      			</li>
+      			</div>
+      			
+    		</ul>
+  		</div>
+	</nav>
+                
+                
+
+                    <div class = "row">
+                        <div class = "col-5">
+
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-success btn-lg" id = "createAuction"  data-toggle="collapse" href="#collapseAuction" role="button" aria-expanded="true" aria-controls="collapseExample">Create an Auction</button>
+                        </div>
+                        <div class ="col-5">
+
+                        </div>
+                    </div>
+                    
+                        <div  class = "collapse card" id = "collapseAuction"  >
+                            <h5 class="card-header">Create Auction</h5>
+                            <div class="card-body">
+                              
+                                <div class = "row" >
+                                    <div class = "col-3">
+            
+                                    </div>
+                                    <div class="col-6">
+
+
+                                        <form action = "/ecommerce/CreateAuction" method = "post" enctype="multipart/form-data">
+
+                                           
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">Upload product piture</label>
+                                            <div class="file-field" id = "imageUpload">
+                                                <div class="btn btn-primary btn-sm float-left">
+                                                  <span>Choose file</span>
+                                                   <input type = "hidden" th:value="${session.userId}" name="uid" >
+                                                  <input type="file" name = "productImages">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+      									<input type="text" class="form-control" placeholder="Give a Short title" name = "title">
+
+                                        </div>        
+                                                 <div class="form-group">
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Give product description here......." rows="3" cols="70" name = "productDescription"></textarea>
+                                            </div>
+                                        
+                                        
+                                        <div class = "form-group">
+                                            <label for="birthdaytime">Select the Dead Time</label>
+                                        <input type="datetime-local" id="birthdaytime" name="deadTime">
+                                        </div> 
+                                        <div>
+                                            <button type="submit" class="btn btn-success">Start Auction Now</button>
+                                        </div>
+                                        
+                                        </form>
+                                    </div>
+                                    <div class ="col-3">
+            
+                                    </div>
+                                </div>
+
+                            </div>
+                          </div>
+
+
+
+						 <section class = "productSection" >
+                            <div class="container">
+                              <div class="row d-flex">
+                              <div th:each="auction: ${auctions}">
+                              
+                              
+                              
+                              
+                              
+                              <div class="card" style="width:300px">
+  								<img  th:src="@{'data:image/png;base64,'}+${auction.base64image}" alt="Card image" style = "width: 300px; height:200px; max-width: 100%; max-height: 100%" class="card-img-top">
+  									<div class="card-body">
+  										<img th:src="@{'data:image/png;base64,'}+${auction.user.base64image}" style="max-width: 100%;
+  height: auto; 
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    max-width: 100%" alt="Avatar" class = "profilePicture">
+    
+                                     <h4 class="card-title" th:text="${auction.user.name}">John Doe</h4></p>
+                                          <p class="card-text" th:text="${auction.title}">Some example text.</p>
+                                          <p class="card-text">dead time :<span th:text="${#temporals.format(auction.deadTime, 'dd-MM-yyyy HH:mm')}"></span></p>
+                                          <a th:href="@{/ecommerce/ProductDetails(id=${auction.id})}" class="btn btn-primary">See Details</a>
+                                     
+  									</div>
+								</div>
+                              
+                              
+                              
+                              
+                              
+                              
+                              <!--  
+                              	  <div class="col-md-4 d-flex ">
+                                    <div class="card" style="width:325px; margin-top: 20px">
+                                        <img th:src="@{'data:image/png;base64,'}+${auction.base64image}" class="card-img-top"  style="max-width: 100%;
+    height: auto; 	
+    width: 320px;
+    height: 300px" alt="Card image" >
+                                        <div class="card-body">
+                                        <p><img th:src="@{'data:image/png;base64,'}+${auction.user.base64image}" style="max-width: 100%;
+  height: auto; 
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    max-width: 100%" alt="Avatar" class = "profilePicture">
+                                          <h4 class="card-title" th:text="${auction.user.name}">John Doe</h4></p>
+                                          <p class="card-text" th:text="${auction.title}">Some example text.</p>
+                                          <p class="card-text">dead time :<span th:text="${#temporals.format(auction.deadTime, 'dd-MM-yyyy HH:mm')}"></span></p>
+                                          <a href="#" class="btn btn-primary">See Details</a>
+                                        </div>
+                                      </div>
+                                </div>
+                              </div>
+                    -->            
+ 
+                              </div>
+                            </div>
+                            </div>
+                          </section>
+						
+                    
+
+
+
+
+                   
+                    
+
+
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    </body>
+</html>

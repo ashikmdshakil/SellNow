@@ -1,0 +1,46 @@
+#profilePicture {
+  max-width: 100%;
+  height: auto;  
+  }
+
+
+  .btn {
+    position: absolute;
+    top: 67%;
+    left: 19%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+ #imageUpload{
+   position: relative;
+   top:30px;
+   left: 85px;
+ }
+  .about{
+    position: absolute;
+    left: 550px;
+    top: 100px;
+  }
+
+  #saveUpdate{
+    position: relative;
+    top:80px;
+    left:220px;
+  }
+  #update{
+    position: absolute;
+    top:340px;
+    left: 250px;
+  }
+
+
+  
+  
